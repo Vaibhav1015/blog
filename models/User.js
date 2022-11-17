@@ -18,15 +18,14 @@ const UserSchema = new mongoose.Schema(
     },
     address: {
       type: Object,
-      required:false,
       street: {
-        type: Array
+        type : Object
       },
       city: {
-        type: Array
+        type: Object
       },
       zipcode:{
-        type: Array
+        type: Object
       },
     },
     phone: {
