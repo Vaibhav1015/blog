@@ -38,8 +38,8 @@ const UserSchema = new mongoose.Schema(
       required : false,
     },
     company: {
-      type: Object,
-      required:false,
+      type: Array,
+      required: false,
       name: {
         type: String
       },
