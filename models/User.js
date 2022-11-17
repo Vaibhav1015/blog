@@ -37,16 +37,16 @@ const UserSchema = new mongoose.Schema(
       required : false,
     },
     company: {
-      type: Array,
+      type: Object,
       required: false,
       name: {
-        type: String
+        type: Object
       },
       catchPhrase:{
-        type: String
+        type: Object
       },
       bs:{
-        type: String
+        type: Object
       },
     }
 
