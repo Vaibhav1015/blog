@@ -17,17 +17,17 @@ const UserSchema = new mongoose.Schema(
       required: true,
     },
     address: {
-      street: {
-        type: Object
-      },
-      city: {
-        type: Object
-      },
-      zipcode:{
-        type: Object
-      },
       type: Object,
       required:false,
+      street: {
+        type: String
+      },
+      city: {
+        type: String
+      },
+      zipcode:{
+        type: String
+      },
     },
     phone: {
       type: String,
@@ -38,17 +38,17 @@ const UserSchema = new mongoose.Schema(
       required : false,
     },
     company: {
-      name: {
-        type: Object
-      },
-      catchPhrase:{
-        type: Object
-      },
-      bs:{
-        type: Object
-      },
       type: Object,
       required:false,
+      name: {
+        type: String
+      },
+      catchPhrase:{
+        type: String
+      },
+      bs:{
+        type: String
+      },
     }
 
   },
