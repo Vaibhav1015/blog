@@ -26,15 +26,15 @@ const UserSchema = new mongoose.Schema(
       zipcode:{
         type: String
       },
-      type: Array,
+      type: Object,
       required:false,
     },
     phone: {
-      type: Array,
+      type: String,
       required : false,
     },
     website: {
-      type: Array,
+      type: String,
       required : false,
     },
     company: {
@@ -47,7 +47,7 @@ const UserSchema = new mongoose.Schema(
       bs:{
         type: String
       },
-      type: Array,
+      type: Object,
       required:false,
     }
 
