@@ -20,13 +20,13 @@ const UserSchema = new mongoose.Schema(
       type: Object,
       required:false,
       street: {
-        type: String
+        type: Array
       },
       city: {
-        type: String
+        type: Array
       },
       zipcode:{
-        type: String
+        type: Array
       },
     },
     phone: {
