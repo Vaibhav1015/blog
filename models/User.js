@@ -30,11 +30,11 @@ const UserSchema = new mongoose.Schema(
       },
     },
     phone: {
-      type: String,
+      type: Object,
       required : false,
     },
     website: {
-      type: String,
+      type: Object,
       required : false,
     },
     company: {
