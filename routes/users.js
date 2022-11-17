@@ -68,4 +68,26 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+/* Get all users data */
+
+router.get('/', (req,res)=> {
+  User.find()
+  .then(result=>{
+    res.status(200).json({
+      UserData:result
+    });
+  })
+  .catch(err=>{
+    console.log(err);
+    res.status(500).json({
+      error:err
+    })
+  });
+
+})
+
+
+
+
+
 module.exports = router;
