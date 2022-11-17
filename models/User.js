@@ -18,13 +18,13 @@ const UserSchema = new mongoose.Schema(
     },
     address: {
       street: {
-        type: String
+        type: Object
       },
       city: {
-        type: String
+        type: Object
       },
       zipcode:{
-        type: String
+        type: Object
       },
       type: Object,
       required:false,
@@ -39,13 +39,13 @@ const UserSchema = new mongoose.Schema(
     },
     company: {
       name: {
-        type: String
+        type: Object
       },
       catchPhrase:{
-        type: String
+        type: Object
       },
       bs:{
-        type: String
+        type: Object
       },
       type: Object,
       required:false,
