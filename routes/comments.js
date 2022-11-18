@@ -11,7 +11,7 @@ const Comment = require("../models/Comment");
 
 
 //CREATE Comment.. 
-router.post("/", async (req, res) => {
+router.post("/:id", async (req, res) => {
     const newComment = new Comment(req.body);
     try {
       const savedComment = await newComment.save();
