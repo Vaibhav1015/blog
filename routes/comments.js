@@ -1,101 +1,124 @@
 const router = require("express").Router();
 const User = require("../models/User");
 const Comment = require("../models/Comment");
+const mongoose = require("mongoose");
 
-/* A route is a section of Express code that associates an 
-   HTTP verb (GET, POST, PUT, DELETE, etc.), a URL path/pattern, 
-   and a function that is called to handle that pattern.
+//Counter model to count a post data id's 
+const counterSchema = {
+  id: {
+    type: String
+  },
+  seq: {
+    type: Number
+  }
+}
 
-   This section is Comments Routes..
-*/
+
+const commentCounterModel = mongoose.model("commentCounter", counterSchema);
 
 
-//CREATE Comment.. 
+//Create new comment on post
 router.post("/", async (req, res) => {
-    const newComment = new Comment(req.body);
-    try {
-      const savedComment = await newComment.save();
-      res.status(200).json(savedComment);
-    } catch (err) {
-      res.status(500).json(err);
-    }
-  });
+  commentCounterModel.findOneAndUpdate(
+    
+    { id: "autoval" },
+    { "$inc": { "seq": 1 } },
+    { new: true }, (err, cd) => {
 
-
-//UPDATE Comment
-router.put("/:id", async (req, res) => {
-    try {
-      const comment = await Comment.findById(req.params.id);
-      if (comment.username === req.body.username) {
-        try {
-          const updatedComment = await Comment.findByIdAndUpdate(
-            req.params.id,
-            {
-              $set: req.body,
-            },
-            { new: true }
-          );
-          res.status(200).json(updatedComment);
-        } catch (err) {
-          res.status(500).json(err);
-        }
+       let seqId;
+      if (cd == null) {
+         const newval = new commentCounterModel({ id: "autoval", seq: 1 })
+        newval.save() 
+        seqId = 1
       } else {
-        res.status(401).json("You can update only your Comments!");
-      }
-    } catch (err) {
-      res.status(500).json(err);
+        seqId = cd.seq
+        
+      } 
+      const newCom = new Comment({
+        postId:req.body.postId,
+        username: req.body.username,
+        email:req.body.email,
+        body:req.body.body,
+        commentId: seqId
+        
+
+      });
+      newCom.save()
+
     }
-  });
+  )
+
+  res.send("New Comment Created!!")
+
+
+});
+
+
+ //UPDATE Comment
+router.put("/update/:id", async (req, res) => {
+  let upid = req.params.id;
+  Comment.findOneAndUpdate({postId:upid},
+    { $set: req.body},
+    { new: true }, (err, data) => {
+      if (data == null) {
+        res.send("nothing found")
+      } else {
+        res.send(data)
+      }
+    }
+  );
+});
 
 
 //DELETE Comment
-router.delete("/:id", async (req, res) => {
-    try {
-      const comment = await Comment.findById(req.params.id);
-      if (comment.username === req.body.username) {
-        try {
-          await comment.delete();
-          res.status(200).json("comment has been deleted...");
-        } catch (err) {
-          res.status(500).json(err);
-        }
-      } else {
-        res.status(401).json("You can delete only your comment!");
-      }
-    } catch (err) {
-      res.status(500).json(err);
+router.delete("/delete/:id",(req,res)=>{
+  let delid=req.params.id;
+  Comment.findOneAndDelete(({postId:delid}),(err,doc)=>{
+    if(doc==null)
+    {
+      res.send("wrong ID")
     }
-  });
-
+    else
+    {
+      res.send("Comment Deleted!!!!");
+    }
+  })
+})
 
 
 //GET Comment
-router.get("/:id", async (req, res) => {
-    try {
-      const comment = await Comment.findById(req.params.id);
-      res.status(200).json(comment);
-    } catch (err) {
-      res.status(500).json(err);
+router.get("/:id",(req,res)=>{
+  fetchid=req.params.id;
+  Comment.find(({postId:fetchid}),(err,val)=>{
+    if(err)
+    {
+      res.send("error")
+    }else{
+      if(val.length==0)
+      {
+        res.send("data does not exit");
+      
+      }else{
+        res.send(val);
+      }
     }
-  });
+  })
+})
 
 
 
 //GET ALL Comments
-router.get("/", async (req, res) => {
-    const username = req.query.user;
-    try {
-      let comments;
-      if (username) {
-        comments = await Comment.find({ username });
-      }else {
-        comments = await Comment.find();
-      }
-      res.status(200).json(comments);
-    } catch (err) {
-      res.status(500).json(err);
+router.get("/",(req,res)=>{
+  Comment.find((err,val)=>{
+    if(err)
+    {
+      console.log(err)
     }
-  });
-
+    else{
+      res.json(val)
+    }
+  })
+})
+ 
 
 module.exports = router;

@@ -2,9 +2,12 @@ const mongoose = require("mongoose");
 //create post schema
 const PostSchema = new mongoose.Schema(
   {
-    username: {
-      type: String,
-      required: true,
+    userId:{
+      type:mongoose.Schema.Types.Number,
+      ref:"User"
+    },
+    postId:{
+      type:Number
     },
     title: {
       type: String,
@@ -17,10 +20,6 @@ const PostSchema = new mongoose.Schema(
     },
     photo: {
       type: String,
-      required: false,
-    },
-    categories: {
-      type: Array,
       required: false,
     },
   },
