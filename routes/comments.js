@@ -3,7 +3,7 @@ const User = require("../models/User");
 const Comment = require("../models/Comment");
 const mongoose = require("mongoose");
 
-//Counter model to count a post data id's 
+//Counter model to count a comment data id's 
 const counterSchema = {
   id: {
     type: String
@@ -54,10 +54,10 @@ router.post("/", async (req, res) => {
 });
 
 
- //UPDATE Comment
+ //UPDATE Comment by commentID
 router.put("/update/:id", async (req, res) => {
   let upid = req.params.id;
-  Comment.findOneAndUpdate({postId:upid},
+  Comment.findOneAndUpdate({commentId:upid},
     { $set: req.body},
     { new: true }, (err, data) => {
       if (data == null) {
@@ -70,10 +70,10 @@ router.put("/update/:id", async (req, res) => {
 });
 
 
-//DELETE Comment
+//DELETE Comment by commentID
 router.delete("/delete/:id",(req,res)=>{
   let delid=req.params.id;
-  Comment.findOneAndDelete(({postId:delid}),(err,doc)=>{
+  Comment.findOneAndDelete(({commentId:delid}),(err,doc)=>{
     if(doc==null)
     {
       res.send("wrong ID")
@@ -86,10 +86,10 @@ router.delete("/delete/:id",(req,res)=>{
 })
 
 
-//GET Comment
+//GET Comment by commentID
 router.get("/:id",(req,res)=>{
   fetchid=req.params.id;
-  Comment.find(({postId:fetchid}),(err,val)=>{
+  Comment.find(({commentId:fetchid}),(err,val)=>{
     if(err)
     {
       res.send("error")

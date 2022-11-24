@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const User = require("../models/User");
 const Post = require("../models/Post");
+const Comment = require("../models/Comment")
 const mongoose = require("mongoose");
 
 
@@ -70,7 +71,7 @@ router.post("/", async (req, res) => {
 */
 router.put("/update/:id", async (req, res) => {
   let upid = req.params.id;
-  Post.findOneAndUpdate({userId:upid},
+  Post.findOneAndUpdate({postId:upid},
     { $set: req.body},
     { new: true }, (err, data) => {
       if (data == null) {
@@ -88,7 +89,7 @@ router.put("/update/:id", async (req, res) => {
 */
 router.delete("/delete/:id",(req,res)=>{
   let delid=req.params.id;
-  Post.findOneAndDelete(({userId:delid}),(err,doc)=>{
+  Post.findOneAndDelete(({postId:delid}),(err,doc)=>{
     if(doc==null)
     {
       res.send("wrong ID")
@@ -107,7 +108,29 @@ router.delete("/delete/:id",(req,res)=>{
 */
 router.get("/:id",(req,res)=>{
   fetchid=req.params.id;
-  Post.find(({userId:fetchid}),(err,val)=>{
+  Post.find(({postId:fetchid}),(err,val)=>{
+    if(err)
+    {
+      res.send("error")
+    }else{
+      if(val.length==0)
+      {
+        res.send("data does not exit");
+      
+      }else{
+        res.send(val);
+      }
+    }
+  })
+})
+
+
+
+//Get single post comments
+
+router.get("/:id/comments",(req,res)=>{
+  fetchid=req.params.id;
+  Comment.find(({postId:fetchid}),(err,val)=>{
     if(err)
     {
       res.send("error")
