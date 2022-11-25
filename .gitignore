@@ -1,5 +1,4 @@
 .env
 node_modules/
-upload/images
-routes/photos.js
-models/Photo.js
+upload/
+

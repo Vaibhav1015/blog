@@ -1,5 +1,12 @@
+/* 
+1. We are importing mongoose from mongoose.
+2. We are creating a schema for our Comment model.
+3. We are exporting the Comment model.
+Now,create a routes for our Comment model.
+ */
+
 const mongoose = require("mongoose");
-//create comment schema
+
 const CommentSchema = new mongoose.Schema(
     {
         postId:{

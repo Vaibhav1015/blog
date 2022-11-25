@@ -1,5 +1,12 @@
+/* 
+1. We are importing mongoose from the mongoose module.
+2. We are creating a schema for our post.
+3. We are exporting the schema as a model.
+Now,create a routes for our post.
+ */
+
 const mongoose = require("mongoose");
-//create post schema
+
 const PostSchema = new mongoose.Schema(
   {
     userId:{

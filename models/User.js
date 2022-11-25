@@ -1,5 +1,11 @@
+/* 
+1. We are creating a new schema for our User model.
+2. We are defining the fields that we want our User model to have.
+3. We are exporting the User model. 
+*/
+
 const mongoose = require("mongoose");
-// create user schema 
+
 const UserSchema = new mongoose.Schema(
   {
     username: {

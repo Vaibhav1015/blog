@@ -6,7 +6,7 @@ const Photo = require("../models/Photo");
 
 
 
-//Counter model to count a post data id's 
+//We are creating a schema for the counter collection of photos
 const counterSchema = {
     id: {
       type: String
@@ -23,8 +23,10 @@ const counterSchema = {
 
 
 
-
-//storage engine 
+/* 
+  1. We are creating a storage object that will store the image in the upload/images folder.
+  2. We are creating a multer object that will store the image in the storage object.
+ */
 const storage = multer.diskStorage({
     destination: './upload/images',
     filename:(req,file,cb)=>{
@@ -35,7 +37,12 @@ const storage = multer.diskStorage({
   const upload = multer({
     storage:storage
   })
-  //create photos in albums ID 
+
+/* 
+ 1. It's creating a new instance of the Photo class.
+ 2. It's setting the albumId, title, url, and photoId properties of the new instance.
+ 3. It's saving the new instance to the database.
+*/
   router.post("/upload",upload.single('photo'),(req,res)=>{
     photoCounterModel.findOneAndUpdate(
     
@@ -68,7 +75,12 @@ const storage = multer.diskStorage({
   })
 
 
-//get photos by photoId 
+/*
+1. It's creating a new instance of the express router.
+2. It's creating a new route for the GET request.
+3. It's fetching the id from the request parameters.
+4. It's finding the photo with the id fetched from the request parameters.
+*/
   router.get("/:id",(req,res)=>{
     fetchid=req.params.id;
     Photo.find(({photoId:fetchid}),(err,val)=>{
@@ -104,7 +116,12 @@ router.put("/update/:id", async (req, res) => {
 });
 
 
-// Get all photos 
+/* 
+1. We are importing the express module and creating an instance of the express router.
+2. We are importing the Photo model.
+3. We are creating a route for the /photos endpoint.
+4. We are using the find method to get all the photos from the database. 
+*/
 router.get("/",(req,res)=>{
   Photo.find((err,val)=>{
     if(err)
@@ -118,8 +135,12 @@ router.get("/",(req,res)=>{
 })
 
 
-
-// delete photos by photoID
+/* 
+1. We are importing the express module and creating an instance of the express router.
+2. We are importing the Photo model.
+3. We are creating a route to get a single photo.
+4. We are using the Delete method to Delete the photo from the database.
+ */
 
 router.delete("/delete/:id",(req,res)=>{
   let delid=req.params.id;

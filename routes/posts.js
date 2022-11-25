@@ -5,7 +5,7 @@ const Comment = require("../models/Comment")
 const mongoose = require("mongoose");
 
 
-//Counter model to count a post data id's 
+//We are creating a schema for the counter collection of posts
 const counterSchema = {
   id: {
     type: String
@@ -19,20 +19,13 @@ const counterSchema = {
 const postCounterModel = mongoose.model("postCounter", counterSchema);
 
 
-
-
-
-/* A route is a section of Express code that associates an 
-HTTP verb (GET, POST, PUT, DELETE, etc.), a URL path/pattern, 
-and a function that is called to handle that pattern. 
-
-Created a posts routes here..
-*/
-
-/* For POST request use router.post() method: 
-   Create Post..
-*/
-//REGISTER New User 
+/* 
+1. It's finding the document with the id "autoval"
+2. If it doesn't exist, it creates it and sets the seq value to 1
+3. If it does exist, it increments the seq value by 1
+4. We're creating a constructor that takes in a userId, title, body, and postId.
+5. We're saving the newPost instance to the database.
+ */
 router.post("/", async (req, res) => {
   postCounterModel.findOneAndUpdate(
     
@@ -64,10 +57,9 @@ router.post("/", async (req, res) => {
 
 
 });
-
-/* For PUT request use router.put() method: 
-   You can find and update post by ID..
-   Update Post..
+/* 
+1. This code is written for posts update. 
+2. If the postId entered by the user matches with the postId in the database then the user will be updated. 
 */
 router.put("/update/:id", async (req, res) => {
   let upid = req.params.id;
@@ -83,10 +75,12 @@ router.put("/update/:id", async (req, res) => {
   );
 });
 
-/* For DELETE request use router.delete() method
-   For deleteing a post ID is required..
-   Delete Post..
-*/
+/* 
+1. We are importing the express module and creating an instance of the express router.
+2. We are importing the Post model.
+3. We are creating a route to get a single post.
+4. We are using the Delete method to Delete the post from the database.
+ */
 router.delete("/delete/:id",(req,res)=>{
   let delid=req.params.id;
   Post.findOneAndDelete(({postId:delid}),(err,doc)=>{
@@ -102,9 +96,11 @@ router.delete("/delete/:id",(req,res)=>{
 })
 
 
-/* For GET request use router.get() method
-   Find a post by ID..
-   Get Post..
+/*
+1. It's creating a new instance of the express router.
+2. It's creating a new route for the GET request.
+3. It's fetching the id from the request parameters.
+4. It's finding the user with the id fetched from the request parameters.
 */
 router.get("/:id",(req,res)=>{
   fetchid=req.params.id;
@@ -146,8 +142,12 @@ router.get("/:id/comments",(req,res)=>{
   })
 })
 
-
-//Get all posts
+/* 
+1. We are importing the express module and creating an instance of the express router.
+2. We are importing the Post model.
+3. We are creating a route for the /posts endpoint.
+4. We are using the find method to get all the posts from the database. 
+*/
 router.get("/",(req,res)=>{
   Post.find((err,val)=>{
     if(err)

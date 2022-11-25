@@ -10,15 +10,14 @@ const photoRoute = require("./routes/photos")
  const multer = require("multer");
 const path = require("path"); 
 const port = process.env.PORT || 5000;
-
-
 dotenv.config();
 app.use(express.json());
+
 app.use("/upload/images", express.static(path.join(__dirname, "/upload/images"))); 
 
 /* 
 Create a connetion with mongodb database to store all data into database..
-If data can not be store into database its showing error message.
+If data can not be store in database it's showing error message.
 */
 mongoose
   .connect(process.env.MONGO_URL, {

@@ -3,7 +3,7 @@ const User = require("../models/User");
 const Post = require("../models/Post");
 const mongoose = require("mongoose");
 
-//Counter model to count a user data id's 
+//We are creating a schema for the counter collection of users.
 const counterSchema = {
   id: {
     type: String
@@ -18,7 +18,11 @@ const counterModel = mongoose.model("counter", counterSchema);
 
 
 
-//REGISTER New User 
+/* 
+1. It's creating a new user with the username, name, email and id.
+2. It's also incrementing the id by 1.
+3. It's saving the new user. 
+*/
 router.post("/register", async (req, res) => {
   counterModel.findOneAndUpdate(
     { id: "autoval" },
@@ -54,11 +58,11 @@ router.post("/register", async (req, res) => {
 
 
 
-/* This code is written for user update. 
-If the user id entered by the user matches with 
-the user id in the database then the user will be updated. 
+/* 
+1. This code is written for user update. 
+2. If the user id entered by the user matches with the user id in the database then the user will be updated. 
 */
-//Update user
+
 router.put("/update/:id", async (req, res) => {
   let upid = req.params.id;
   User.findOneAndUpdate({id:upid},
@@ -73,7 +77,12 @@ router.put("/update/:id", async (req, res) => {
   );
 })
 
-//Get user 
+/*
+1. It's creating a new instance of the express router.
+2. It's creating a new route for the GET request.
+3. It's fetching the id from the request parameters.
+4. It's finding the user with the id fetched from the request parameters.
+ */
 router.get("/:id",(req,res)=>{
   fetchid=req.params.id;
   User.find(({id:fetchid}),(err,val)=>{
@@ -92,7 +101,12 @@ router.get("/:id",(req,res)=>{
   })
 })
 
-//Get all users 
+/* 
+1. We are importing the express module and creating an instance of the express router.
+2. We are importing the User model.
+3. We are creating a route for the /users endpoint.
+4. We are using the find method to get all the users from the database. 
+*/
 router.get("/",(req,res)=>{
   User.find((err,val)=>{
     if(err)
@@ -105,7 +119,12 @@ router.get("/",(req,res)=>{
   })
 })
 
-//Delete user
+/* 
+1. We are importing the express module and creating an instance of the express router.
+2. We are importing the User model.
+3. We are creating a route to get a single user.
+4. We are using the Delete method to Delete the user from the database.
+ */
 
 router.delete("/delete/:id",(req,res)=>{
   let delid=req.params.id;
@@ -120,6 +139,8 @@ router.delete("/delete/:id",(req,res)=>{
     }
   })
 })
+
+
 
 
 module.exports = router;

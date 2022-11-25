@@ -2,6 +2,7 @@ const router = require("express").Router();
 const mongoose = require("mongoose");
 const Album = require("../models/Album");
 
+//We are creating a schema for the counter collection of albums
 const counterSchema = {
     id: {
       type: String
@@ -13,7 +14,11 @@ const counterSchema = {
   
   const AlbumCounterModel = mongoose.model("albumCounter", counterSchema);
 
-//Create album
+/* 
+ 1. It's creating a new instance of the Album class.
+ 2. It's setting the userId, title and albumtId properties of the new instance.
+ 3. It's saving the new instance to the database.
+*/
   router.post("/", async (req, res) => {
     AlbumCounterModel.findOneAndUpdate(
       
@@ -65,7 +70,12 @@ const counterSchema = {
 
 
 
-//Delete album by albumID
+/* 
+1. We are importing the express module and creating an instance of the express router.
+2. We are importing the Album model.
+3. We are creating a route to get a single album.
+4. We are using the Delete method to Delete the album from the database.
+ */
 router.delete("/delete/:id",(req,res)=>{
     let delid=req.params.id;
     Album.findOneAndDelete(({albumId:delid}),(err,doc)=>{
@@ -81,7 +91,12 @@ router.delete("/delete/:id",(req,res)=>{
   })
 
 
-//Get album by albumID
+/*
+1. It's creating a new instance of the express router.
+2. It's creating a new route for the GET request.
+3. It's fetching the id from the request parameters.
+4. It's finding the album with the id fetched from the request parameters.
+*/
 
 router.get("/:id",(req,res)=>{
     fetchid=req.params.id;
@@ -104,7 +119,12 @@ router.get("/:id",(req,res)=>{
 
 
 
-//get all albums
+/* 
+1. We are importing the express module and creating an instance of the express router.
+2. We are importing the Album model.
+3. We are creating a route for the /albums endpoint.
+4. We are using the find method to get all the albums from the database. 
+*/
 router.get("/",(req,res)=>{
     Album.find((err,val)=>{
       if(err)
