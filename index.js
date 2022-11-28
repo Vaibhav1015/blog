@@ -12,6 +12,7 @@ const path = require("path");
 const port = process.env.PORT || 5000;
 dotenv.config();
 app.use(express.json());
+const cors = require('cors');
 
 app.use("/upload/images", express.static(path.join(__dirname, "/upload/images"))); 
 
@@ -38,6 +39,7 @@ app.use("/api/posts", postRoute);
 app.use("/api/comments", commentRoute);
 app.use("/api/albums", albumRoute);
 app.use("/api/photos",photoRoute);
+app.use(cors());
 
 
 
