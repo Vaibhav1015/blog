@@ -3,6 +3,7 @@ const User = require("../models/User");
 const Post = require("../models/Post");
 const mongoose = require("mongoose");
 
+
 //We are creating a schema for the counter collection of users.
 const counterSchema = {
   id: {
@@ -107,14 +108,14 @@ router.get("/:id",(req,res)=>{
 3. We are creating a route for the /users endpoint.
 4. We are using the find method to get all the users from the database. 
 */
-router.get("/",(req,res)=>{
+router.get("/",(req, res)=>{
   User.find((err,val)=>{
     if(err)
     {
       console.log(err)
     }
     else{
-      res.send("helloo ")
+      return res.send(val);
     }
   })
 })

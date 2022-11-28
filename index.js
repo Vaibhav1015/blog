@@ -1,18 +1,28 @@
 const express = require("express");
-const app = express();
+const cors = require('cors');
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
+const bodyParser = require('body-parser');
+
 const userRoute = require("./routes/users");
 const postRoute = require("./routes/posts");
 const commentRoute = require("./routes/comments");
 const albumRoute = require("./routes/albums");
 const photoRoute = require("./routes/photos")
- const multer = require("multer");
+const multer = require("multer");
 const path = require("path"); 
 const port = process.env.PORT || 5000;
 dotenv.config();
+
+const app = express();
 app.use(express.json());
-const cors = require('cors');
+
+
+app.use(cors());
+
+// Configuring body parser middleware
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 app.use("/upload/images", express.static(path.join(__dirname, "/upload/images"))); 
 
