@@ -114,7 +114,7 @@ router.get("/",(req,res)=>{
       console.log(err)
     }
     else{
-      res.json(val)
+      res.send(val)
     }
   })
 })
