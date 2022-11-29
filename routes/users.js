@@ -141,7 +141,23 @@ router.delete("/delete/:id",(req,res)=>{
   })
 })
 
-
+router.get("/:id/posts",(req,res)=>{
+  fetchid=req.params.id;
+  Post.find(({userId:fetchid}),(err,val)=>{
+    if(err)
+    {
+      res.send("error")
+    }else{
+      if(val.length==0)
+      {
+        res.send("data does not exit");
+      
+      }else{
+        res.send(val);
+      }
+    }
+  })
+})
 
 
 module.exports = router;
