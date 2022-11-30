@@ -141,6 +141,7 @@ router.delete("/delete/:id",(req,res)=>{
   })
 })
 
+
 router.get("/:id/posts",(req,res)=>{
   fetchid=req.params.id;
   Post.find(({userId:fetchid}),(err,val)=>{
