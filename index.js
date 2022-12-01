@@ -9,6 +9,7 @@ const postRoute = require("./routes/posts");
 const commentRoute = require("./routes/comments");
 const albumRoute = require("./routes/albums");
 const photoRoute = require("./routes/photos")
+const todoRoute = require("./routes/todos");
 const multer = require("multer");
 const path = require("path"); 
 const port = process.env.PORT || 5000;
@@ -49,6 +50,7 @@ app.use("/api/posts", postRoute);
 app.use("/api/comments", commentRoute);
 app.use("/api/albums", albumRoute);
 app.use("/api/photos",photoRoute);
+app.use("/api/todos",todoRoute);
 app.use(cors());
 
 
